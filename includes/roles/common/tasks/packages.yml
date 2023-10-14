@@ -1,0 +1,10 @@
+---
+- name: install Tmux
+  dnf: 
+    name: tmux
+  become: true
+
+- name: install Cockpit
+  dnf:
+    name: cockpit
+  become: true

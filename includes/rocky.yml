@@ -1,0 +1,8 @@
+---
+- name: Rocky Linux
+  hosts: rocky
+  remote_user: rocky
+  roles:
+    - common
+    - mosquitto
+

@@ -1,0 +1,10 @@
+---
+- name: instal epel-release repositories
+  dnf:
+    name: epel-release
+  become: true
+  
+- name: install Mosquitto
+  dnf:
+    name: mosquitto
+  become: true
