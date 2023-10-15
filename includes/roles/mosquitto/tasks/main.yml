@@ -8,3 +8,10 @@
   dnf:
     name: mosquitto
   become: true
+  
+- name: enable and start Mosquitto service
+  service:
+    name: mosquitto
+    enabled: true
+    state: started
+  become: true

@@ -1,2 +1,2 @@
 [rocky]
-raspberrypi upgrade_packages=false
+raspberrypi4 upgrade_packages=false
