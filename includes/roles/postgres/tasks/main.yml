@@ -3,3 +3,96 @@
   dnf:
     name: postgresql
   become: true
+  
+- name: install PostgreSQL server
+  dnf:
+    name: postgresql-server
+  become: true
+  
+- name: Run postgresql-setup --initdb
+  command: /usr/bin/postgresql-setup --initdb
+  become: true
+  register: initdb
+  when: pginit | bool == true
+  notify: restart postgresql
+  
+- name: enable and start postgresql service
+  service:
+    name: postgresql
+    enabled: true
+    state: started
+  become: true
+  when: initdb.changed | bool == true
+  notify: restart postgresql
+  
+- name: copying pg_hba.conf into postgresql directory
+  copy:
+    src: files/pg_hba.conf
+    dest: /var/lib/pgsql/data/pg_hba.conf
+    force: true
+  become: true
+  notify: restart postgresql
+  
+- name: copying postgresql.conf into postgresql directory
+  copy:
+    src: files/postgresql.conf
+    dest: /var/lib/pgsql/data/postgresql.conf
+    force: true
+  become: true
+  notify: restart postgresql
+  
+- name: add postgresql port to firewall
+  command: firewall-cmd --permanent --add-service=postgresql
+  become: true
+
+- name: restart firewall service
+  command: firewall-cmd --reload
+  become: true
+
+- name: flush_handlers
+  meta: flush_handlers
+  
+- name: install libpq-devel
+  dnf:
+    name: libpq-devel
+  become: true
+
+- name: install python3-devel
+  dnf:
+    name: python3-devel
+  become: true
+  
+- name: install python3-pip
+  dnf:
+    name: python3-pip
+  become: true
+  
+- name: install gcc
+  dnf:
+    name: gcc
+  become: true
+  
+- name: Install psycopg2 python package
+  ansible.builtin.pip:
+    name: psycopg2
+  become: true
+
+- name: Ensure PostgreSQL user exists
+  postgresql_user:
+    name: "user"
+    password: "password"
+    role_attr_flags: CREATEDB
+  register: result
+  become: true
+  become_user: postgres
+
+- name: Display the result
+  debug:
+    var: result
+  
+- name: Create a new database with name "user"
+  postgresql_db:
+    name: user
+  become: true
+  become_user: postgres
+
