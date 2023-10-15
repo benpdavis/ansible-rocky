@@ -27,3 +27,17 @@
 `export ANSIBLE_HOST_KEY_CHECKING=False`
 ### wsl - ubuntu - turn on ssh key checking
 `unset ANSIBLE_HOST_KEY_CHECKING`
+
+## Testing PostgreSQL
+User: `user`
+Password: `password`
+
+`psql -h raspberrypi4 -U user -W`
+
+## Testing Mosquitto
+User: `mosquitto`
+Password: `password`
+
+`mosquitto_sub -h raspberrypi4 -t test -u mosquitto -P password`
+
+`mosquitto_pub -h raspberrypi4 -t test -u mosquitto -P password -t test -m test`
