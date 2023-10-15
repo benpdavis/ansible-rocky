@@ -4,6 +4,13 @@
   ignore_errors: true
   become: true
   when: expand_fs | bool == true
+  
+- name: ensure PermitRootLogin is disabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin\ yes'
+    line: PermitRootLogin no
+  become: true
 
 - include_tasks: packages.yml
 
