@@ -11,6 +11,6 @@
     regexp: '^PermitRootLogin\ yes'
     line: PermitRootLogin no
   become: true
+  notify: restart sshd
 
 - include_tasks: packages.yml
-
