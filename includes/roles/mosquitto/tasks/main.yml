@@ -15,16 +15,25 @@
     enabled: true
     state: started
   become: true
+  
+- name: add mqtt port to firewall
+  command: firewall-cmd --permanent --add-service=mqtt
+  become: true
 
+- name: restart firewall service
+  command: firewall-cmd --reload
+  become: true
+ 
 - name: copying pwfile into Mosquitto directory
   copy:
     src: files/etc/mosquitto/pwfile
     dest: /etc/mosquitto/pwfile
   become: true
+  notify: restart mosquitto
 
-- name: set Mosquitto pwfile in mosquitto.conf
-  lineinfile:
-    path: /etc/mosquitto/mosquitto.conf
-    line: password_file /etc/mosquitto/pwfile
+- name: copying mosquitto.conf into Mosquitto directory
+  copy:
+    src: files/etc/mosquitto/mosquitto.conf
+    dest: /etc/mosquitto/mosquitto.conf
   become: true
   notify: restart mosquitto
