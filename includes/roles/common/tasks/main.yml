@@ -3,6 +3,7 @@
   ansible.builtin.command: rootfs-expand
   ignore_errors: true
   become: true
+  when: expand_fs | bool == true
 
 - include_tasks: packages.yml
 
