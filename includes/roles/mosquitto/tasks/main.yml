@@ -15,3 +15,16 @@
     enabled: true
     state: started
   become: true
+
+- name: copying pwfile into Mosquitto directory
+  copy:
+    src: files/etc/mosquitto/pwfile
+    dest: /etc/mosquitto/pwfile
+  become: true
+
+- name: set Mosquitto pwfile in mosquitto.conf
+  lineinfile:
+    path: /etc/mosquitto/mosquitto.conf
+    line: password_file /etc/mosquitto/pwfile
+  become: true
+  notify: restart mosquitto
