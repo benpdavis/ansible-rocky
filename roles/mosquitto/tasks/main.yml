@@ -26,14 +26,14 @@
  
 - name: copying pwfile into Mosquitto directory
   copy:
-    src: files/etc/mosquitto/pwfile
+    src: pwfile
     dest: /etc/mosquitto/pwfile
   become: true
   notify: restart mosquitto
 
 - name: copying mosquitto.conf into Mosquitto directory
   copy:
-    src: files/etc/mosquitto/mosquitto.conf
+    src: mosquitto.conf
     dest: /etc/mosquitto/mosquitto.conf
   become: true
   notify: restart mosquitto
