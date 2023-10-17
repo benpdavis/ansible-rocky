@@ -1,0 +1,24 @@
+---
+- name: ensure all DNF packages are on latest
+  dnf:
+    name: "*"
+    state: latest
+  become: true
+  when: upgrade_packages | bool == true
+
+- name: install Tmux
+  dnf: 
+    name: tmux
+  become: true
+
+- name: install Cockpit
+  dnf:
+    name: cockpit
+  become: true
+
+- name: enable and start Cockpit service
+  service:
+    name: cockpit
+    enabled: true
+    state: started
+  become: true
