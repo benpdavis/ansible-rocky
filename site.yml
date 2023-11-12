@@ -4,6 +4,3 @@
   remote_user: rocky
   roles:
     - common
-    - mosquitto
-    - postgres
-
