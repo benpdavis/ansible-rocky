@@ -1,2 +1,2 @@
 [rocky]
-raspberrypi4 upgrade_packages=false expand_fs=false pginit=false
+raspberrypi4b upgrade_packages=false expand_fs=false pginit=false

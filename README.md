@@ -28,6 +28,11 @@
 ### wsl - ubuntu - turn on ssh key checking
 `unset ANSIBLE_HOST_KEY_CHECKING`
 
+## Optional Parameters
+`upgrade_packages=true`
+`expand_fs=true`
+`pginit=true`
+
 ## Testing PostgreSQL
 User: `user`
 Password: `password`
