@@ -11,6 +11,11 @@
     name: tmux
   become: true
 
+- name: install Cockpit
+  dnf:
+    name: cockpit
+  become: true
+
 - name: enable and start Cockpit service
   service:
     name: cockpit
