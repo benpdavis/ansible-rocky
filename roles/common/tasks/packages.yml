@@ -16,6 +16,11 @@
     name: cockpit
   become: true
 
+- name: install Cockpit Podman
+  dnf:
+    name: cockpit-podman
+  become: true
+
 - name: enable and start Cockpit service
   service:
     name: cockpit
